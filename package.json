@@ -1,0 +1,27 @@
+{
+  "name": "aubio",
+  "version": "1.0.0",
+  "description": "An audio stream app for millenials",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parinaysingh/aubio.git"
+  },
+  "keywords": [
+    "Streaming"
+  ],
+  "author": "Nilesh Singh, Parinay Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parinaysingh/aubio/issues"
+  },
+  "homepage": "https://github.com/parinaysingh/aubio#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "redis": "^2.8.0"
+  }
+}
