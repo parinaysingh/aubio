@@ -1,7 +1,7 @@
 {
   "name": "aubio",
   "version": "1.0.0",
-  "description": "An audio stream app for millenials",
+  "description": "An audio stream app for millennials",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
