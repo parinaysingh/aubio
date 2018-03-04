@@ -8,14 +8,20 @@
 </head>
 
 <body>
-    <script>
-        const audio = document.createElement('audio')
-        audio.src = 'stream/79236'
-        audio.controls = true
-        document.getElementsByTagName('body')[0].appendChild(audio)
-        audio.load()
-        audio.play()
-    </script>
+
+<form action="/upload" method="post" enctype='multipart/form-data'>
+    <input type="file" name="audio_file"><br/>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    const audio = document.createElement('audio')
+    audio.src = 'stream/79236'
+    audio.controls = true
+    document.getElementsByTagName('body')[0].appendChild(audio)
+    audio.load()
+    audio.play()
+</script>
 </body>
 
 </html>
