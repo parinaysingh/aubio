@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 
 /* Routes go here */
 app.use('/', require('./routes/stream'))
+app.use('/upload', require('./routes/upload'))
 
 /* Demo html */
 app.get('/', (req, res) => {
