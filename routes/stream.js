@@ -25,7 +25,7 @@ Router.get('/stream/:id', (req, res) => {
         }
 
         audioInfo = JSON.parse(audioInfo)
-        let filePath = '/home/nilesh/aubio/media/0.wzcjon7sr5j.aac' //audioInfo.path
+        let filePath = audioInfo.path
 
         fs.stat(filePath, (err, stats) => {
             if (err) {
