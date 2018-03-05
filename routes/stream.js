@@ -1,6 +1,7 @@
 import express from 'express'
 import fs from 'fs'
 import redis from 'redis'
+import path from 'path'
 
 const Router = express.Router(),
     redisClient = redis.createClient()
@@ -24,7 +25,7 @@ Router.get('/stream/:id', (req, res) => {
         }
 
         audioInfo = JSON.parse(audioInfo)
-        let filePath = audioInfo.path
+        let filePath = '/home/nilesh/aubio/media/0.wzcjon7sr5j.aac' //audioInfo.path
 
         fs.stat(filePath, (err, stats) => {
             if (err) {
@@ -35,15 +36,16 @@ Router.get('/stream/:id', (req, res) => {
                 ranges = range
                     .replace('bytes=', '', 'g')
                     .split('-'),
-                start = parseInt(ranges[0]),
-                end = parseInt(ranges[1]) || fileSize - 1,
+                start = parseInt(ranges[0], 10),
+                end = parseInt(ranges[1], 10) || fileSize - 1,
                 streamChunk = end - start + 1
 
             res.writeHead(206, {
                 'Content-Range': 'bytes ' + start + '-' + end + '/' + fileSize,
                 'Accept-Ranges': 'bytes',
                 'Content-Length': streamChunk,
-                'Content-Type': 'audio/ogg'
+                'Content-Type': 'audio/ogg',
+                'Cache-Control': 'max-age=0'
             })
 
             let stream = fs.createReadStream(filePath, {start, end})

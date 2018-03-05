@@ -1,31 +1,47 @@
 import path from 'path'
 import ffmpeg from 'ffmpeg'
-import { spawn } from 'child_process'
+import {spawn} from 'child_process'
 import multer from 'multer'
 import express from 'express'
+import FFDiskStorage from '../storage/ff-disk-storage'
 
 const Router = express.Router()
 
+const Store = FFDiskStorage({
+    filename: function (req, file, callback) {
+        let ext = path.extname(file.originalname),
+            newFileName = Math
+                .random()
+                .toString(36)
+
+        callback(null, newFileName)
+    }
+})
+
+
 const Storage = multer.diskStorage({
     filename: function (req, file, callback) {
-        callback(null, Math.random().toString(36) + "_" + file.originalname);
+        let ext = path.extname(file.originalname),
+            newFileName = Math
+                .random()
+                .toString(36) + ext
+        console.log(newFileName)
+
+        callback(null, newFileName)
     }
-});
+})
+
+const upload = multer({storage: Store}).single("audio_file")
 
 Router.post('/', function (req, res) {
-    const upload = multer({storage: Storage}).single("audio_file");
     upload(req, res, function (err) {
-        if (err) throw ("File Upload Failed!");
-        const temp_file_path = req.file.path;
-        const file_name = path.parse(req.file.filename).name;
-        const ff = spawn('ffmpeg', ['-i', `${temp_file_path}`, '-c:a', 'aac', `media/${file_name}.aac`]);
-        ff.on('close', (code) => {
-            if (code == 0){
-                res.send('Success');
-            }else {
-                res.send('Fail')
-            }
-        });
+        if (err) {
+            return res.sendStatus(400)
+        }
+
+        console.log('File Stats:', req.file)
+
+        res.sendStatus(200)
     })
 })
 
