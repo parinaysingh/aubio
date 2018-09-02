@@ -1,3 +1,3 @@
 # aubio
 
-An audio streaming app for the next-gen millennials
+An audio streaming app
